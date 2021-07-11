@@ -1,0 +1,233 @@
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import javax.swing.border.*;
+public class loginpage extends Frame 
+{
+JPanel contentPane;
+loginpage()
+{
+JLabel forimg=new JLabel("");
+Image i=new ImageIcon(this.getClass().getResource("imagelogo.png")).getImage();
+//Image i=new ImageIcon(this.getClass().getResource("imagelogo.png").getImage().getScaledInstance(100,150,i.SCALE_SMOOTH));    
+forimg.setIcon(new ImageIcon(i));
+forimg.setBounds(290,120,250,130);
+add(forimg);
+
+
+setTitle("Login Page Example");
+Font f1=new Font("Ariel",Font.BOLD,14);
+Font f2=new Font("Ariel",Font.BOLD,13);
+Font f3=new Font("Courier",Font.BOLD,45);
+Font f4=new Font("Courier",Font.BOLD,15);
+
+Label l1=new Label("Enter Username:");
+l1.setBounds(170,280,120,20);
+l1.setFont(f1);
+//l1.setForeground(Color.green);
+
+Label l2=new Label("Enter Password:");
+l2.setBounds(170,360,120,20);
+l2.setFont(f1);
+//l2.setForeground(Color.green);
+
+Label l3=new Label("LOGIN");
+l3.setBounds(150,150,200,40);
+l3.setFont(f3);
+l3.setForeground(Color.red);
+
+JTextField t1=new JTextField(5);
+t1.setBounds(300,275,220,30);
+t1.setFont(f4);
+t1.setBorder(BorderFactory.createLineBorder(Color.red));
+
+JPasswordField t2=new JPasswordField();
+t2.setBounds(300,355,220,30);
+t2.setEchoChar('*');
+t2.setFont(f4);
+t2.setBorder(BorderFactory.createLineBorder(Color.red));
+
+JButton b1=new JButton("Login");
+b1.setBounds(250,450,100,50);
+b1.setFont(f1);
+b1.setForeground(Color.red);
+b1.setBackground(Color.orange);
+
+
+JButton b2=new JButton("Clear");
+b2.setBounds(370,450,100,50);
+b2.setFont(f1);
+b2.setForeground(Color.red);
+b2.setBackground(Color.orange);
+
+JButton b3=new JButton("Exit");
+b3.setBounds(490,450,100,50);
+b3.setFont(f1);
+b3.setForeground(Color.red);
+b3.setBackground(Color.orange);
+
+Checkbox ch=new Checkbox("Show Password");
+ch.setBounds(300,400,150,20);
+ch.setFont(f2);
+//ch.setForeground(Color.green);
+
+add(l1);
+add(l2);
+add(l3);
+add(t1);
+add(t2);
+add(b1);
+add(b2);
+add(b3);
+add(ch);
+
+ActionListener al=new ActionListener()
+{
+public void actionPerformed(ActionEvent e)
+{
+boolean isvalue=true;
+if(t1.getText().isEmpty())
+{
+isvalue=false;
+JOptionPane.showMessageDialog(null,"Please Enter Username","Login", JOptionPane.WARNING_MESSAGE);
+}
+if(t2.getText().isEmpty())
+{
+isvalue=false;
+JOptionPane.showMessageDialog(null,"Please Enter Password","Login", JOptionPane.WARNING_MESSAGE);
+}
+if(isvalue)
+{
+String username=t1.getText().toString().trim();
+String password=t2.getText().toString().trim();
+if(username.equals("Aniket") && password.equals("aniket@123"))
+{
+JOptionPane.showMessageDialog(null,"Login Successful...","Login", JOptionPane.INFORMATION_MESSAGE);
+new loginpage().setVisible(false);
+dispose();
+new welcomewindow().setVisible(true);
+}
+else
+{
+JOptionPane.showMessageDialog(null,"Invalid Login...","Login", JOptionPane.INFORMATION_MESSAGE);
+}
+}
+}
+};
+b1.addActionListener(al);
+
+ActionListener al1=new ActionListener()
+{
+public void actionPerformed(ActionEvent e)
+{
+if(t1.getText().isEmpty() && t2.getText().isEmpty())
+{
+JOptionPane.showMessageDialog(null,"Both fields are already Clear","Login", JOptionPane.INFORMATION_MESSAGE);
+}
+else
+{
+//JOptionPane.showMessageDialog(null,"Clear All","Login", JOptionPane.INFORMATION_MESSAGE);
+t1.setText("");
+t2.setText("");
+}
+}
+};
+b2.addActionListener(al1);
+
+ActionListener close=new ActionListener()
+{
+public void actionPerformed(ActionEvent e)
+{
+JFrame frame = new JFrame("Exit");
+if(JOptionPane.showConfirmDialog(frame,  "Confirm if you want to exit","Login",
+JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION)
+{
+System.exit(0);
+}
+}
+};
+b3.addActionListener(close);
+
+ItemListener al2=new ItemListener()
+{
+public void itemStateChanged(ItemEvent e)
+{
+if(e.getStateChange()==1)
+{
+t2.setEchoChar((char)0);
+}
+else
+{
+t2.setEchoChar('*');
+}
+}
+};
+ch.addItemListener(al2);
+
+
+KeyListener k1=new KeyListener()
+{
+public void keyPressed(KeyEvent evt) 
+  {                                       
+  char ch1= evt.getKeyChar();
+    if(Character.isDigit(ch1))
+     {
+       t1.setEditable(false); 
+       t1.setBackground(Color.white);
+       JOptionPane.showMessageDialog(null,"Number are not allow","Login", JOptionPane.ERROR_MESSAGE);                
+     }
+ else
+     {
+       t1.setEditable(true); 
+      }
+    } 
+public void keyReleased(KeyEvent evt) 
+{
+
+}
+public void keyTyped(KeyEvent evt) 
+{
+
+}                                  
+};
+t1.addKeyListener(k1);  
+
+
+KeyListener k2=new KeyListener()
+{
+public void keyPressed(KeyEvent evt) 
+  {                                       
+  char ch1= evt.getKeyChar();
+    if(evt.getKeyCode()==KeyEvent.VK_ENTER)
+     {
+       t2.setFocusable(true);     
+     }
+
+    } 
+public void keyReleased(KeyEvent evt) 
+{
+
+}
+public void keyTyped(KeyEvent evt) 
+{
+
+}                                  
+};
+t1.addKeyListener(k2);  
+
+
+
+ 
+
+setBackground(Color.green);
+setSize(700,600);
+setLayout(null);
+//setLayout(new FlowLayout());
+setVisible(true);
+}
+
+public static void main(String args[])
+{
+loginpage s1=new loginpage();
+}
+}
