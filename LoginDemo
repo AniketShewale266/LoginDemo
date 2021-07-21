@@ -215,10 +215,6 @@ public void keyTyped(KeyEvent evt)
 };
 t1.addKeyListener(k2);  
 
-
-
- 
-
 setBackground(Color.green);
 setSize(700,600);
 setLayout(null);
